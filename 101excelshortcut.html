@@ -5,412 +5,670 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>101 Essential Excel Shortcuts</title>
+    <title>Excel Shortcuts Master</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            200: '#c7d2fe',
-                            300: '#a5b4fc',
-                            400: '#818cf8',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            800: '#3730a3',
-                            900: '#312e81',
-                        }
-                    },
-                    boxShadow: {
-                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f9fafb;
-            background-image: 
-                radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
-                radial-gradient(at 80% 0%, rgba(236, 72, 153, 0.1) 0px, transparent 50%),
-                radial-gradient(at 0% 50%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
-            background-attachment: fixed;
+            background-color: #f8fafc;
         }
-        
         .shortcut-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
         }
-        
         .shortcut-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        
         .key {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            background-color: #e2e8f0;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            margin: 0 0.25rem;
+        }
+        .category-btn.active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .search-highlight {
+            background-color: #fef08a;
+        }
+        @media (max-width: 640px) {
+            .shortcut-grid {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+        }
+        .header-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+        }
+        .header-cell {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .floating-key {
+            position: absolute;
+            animation: float 8s infinite ease-in-out;
+            opacity: 0.7;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(5deg); }
+            50% { transform: translateY(5px) rotate(-5deg); }
+            75% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .key-combo {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .key-btn {
+            background: white;
+            color: #4338ca;
+            font-weight: 700;
             border-radius: 6px;
-            background-color: #f3f4f6;
-            font-weight: 600;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.06);
-            margin: 0 2px;
-            min-width: 24px;
-            border: 1px solid #e5e7eb;
+            padding: 0.5rem 0.75rem;
+            min-width: 40px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin: 0 0.25rem;
+            font-family: 'Inter', sans-serif;
         }
-        
-        .category-tab {
-            transition: all 0.2s ease;
-            position: relative;
-        }
-        
-        .category-tab.active::after {
-            content: '';
+        .header-wave {
             position: absolute;
             bottom: -2px;
             left: 0;
             width: 100%;
-            height: 2px;
-            background-color: currentColor;
-        }
-        
-        .search-container {
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .search-container:focus-within {
-            transform: scale(1.01);
-        }
-        
-        @media (max-width: 768px) {
-            .shortcut-grid {
-                grid-template-columns: repeat(1, 1fr);
-            }
+            overflow: hidden;
+            line-height: 0;
         }
     </style>
 </head>
-<body class="min-h-screen">
-    <div class="container mx-auto px-4 py-12 max-w-7xl">
-        <header class="text-center mb-12">
-            <div class="inline-block mb-4 p-2 bg-gradient-to-r from-primary-500 to-purple-500 rounded-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V3zm1 0v12h12V3H4zm3 3a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zm0 4a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zm0 4a1 1 0 011-1h2a1 1 0 110 2H8a1 1 0 01-1-1z" clip-rule="evenodd" />
+<body>
+    <div class="min-h-screen">
+        <!-- Enhanced Header -->
+        <header class="relative bg-gradient-to-br from-indigo-700 via-purple-700 to-indigo-900 text-white py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <!-- Background Grid -->
+            <div class="header-grid">
+                <!-- Grid cells generated by JS -->
+            </div>
+            
+            <!-- Floating Keys -->
+            <div class="floating-key" style="top: 15%; left: 10%; animation-delay: 0s;">
+                <div class="key-btn">F2</div>
+            </div>
+            <div class="floating-key" style="top: 25%; left: 85%; animation-delay: 1s;">
+                <div class="key-btn">Alt</div>
+            </div>
+            <div class="floating-key" style="top: 65%; left: 20%; animation-delay: 2s;">
+                <div class="key-btn">Tab</div>
+            </div>
+            <div class="floating-key" style="top: 75%; left: 75%; animation-delay: 3s;">
+                <div class="key-btn">↑</div>
+            </div>
+            <div class="floating-key" style="top: 10%; left: 60%; animation-delay: 4s;">
+                <div class="key-btn">Esc</div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-10 md:mb-0 text-center md:text-left">
+                        <div class="flex items-center justify-center md:justify-start mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-400 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm2-1h12a1 1 0 011 1v10a1 1 0 01-1 1h-12a1 1 0 01-1-1V5a1 1 0 011-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+                            </svg>
+                            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-200">
+                                Excel Shortcuts Master
+                            </h1>
+                        </div>
+                        <p class="mt-2 text-xl md:text-2xl max-w-2xl text-purple-100">
+                            Boost your productivity with <span class="font-bold text-white">100 essential</span> keyboard shortcuts
+                        </p>
+                        <div class="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-500 bg-opacity-30 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                                Navigation
+                            </span>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-500 bg-opacity-30 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                </svg>
+                                Formatting
+                            </span>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-500 bg-opacity-30 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                                </svg>
+                                Editing
+                            </span>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-500 bg-opacity-30 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4-1a1 1 0 10-2 0v7a1 1 0 102 0V8z" clip-rule="evenodd" />
+                                </svg>
+                                Formulas
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="relative">
+                            <div class="absolute -top-6 -right-6 bg-green-400 text-gray-900 rounded-full px-3 py-1 text-sm font-bold transform rotate-12 shadow-lg">
+                                Most Used!
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20">
+                                <h3 class="text-lg font-semibold mb-4 text-center">Essential Shortcuts</h3>
+                                <div class="space-y-3">
+                                    <div class="key-combo">
+                                        <span class="key-btn">Ctrl</span>
+                                        <span class="text-white mx-1">+</span>
+                                        <span class="key-btn">S</span>
+                                        <span class="ml-3 text-white font-medium">Save</span>
+                                    </div>
+                                    <div class="key-combo">
+                                        <span class="key-btn">Ctrl</span>
+                                        <span class="text-white mx-1">+</span>
+                                        <span class="key-btn">C</span>
+                                        <span class="ml-3 text-white font-medium">Copy</span>
+                                    </div>
+                                    <div class="key-combo">
+                                        <span class="key-btn">Ctrl</span>
+                                        <span class="text-white mx-1">+</span>
+                                        <span class="key-btn">V</span>
+                                        <span class="ml-3 text-white font-medium">Paste</span>
+                                    </div>
+                                    <div class="key-combo">
+                                        <span class="key-btn">Alt</span>
+                                        <span class="text-white mx-1">+</span>
+                                        <span class="key-btn">=</span>
+                                        <span class="ml-3 text-white font-medium">AutoSum</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <p class="text-purple-200 text-sm">Scroll down to explore all 100 shortcuts</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mt-2 animate-bounce text-purple-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wave SVG -->
+            <div class="header-wave">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-current text-gray-50"></path>
                 </svg>
             </div>
-            <h1 class="text-5xl font-extrabold text-gray-800 mb-3 tracking-tight">
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-purple-600">101 Excel Shortcuts</span>
-            </h1>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto">Master Excel with these powerful keyboard combinations and boost your productivity</p>
         </header>
-        
-        <div class="mb-10 search-container">
-            <div class="relative max-w-2xl mx-auto">
-                <input type="text" id="searchInput" placeholder="Search shortcuts..." class="w-full p-4 pl-12 border-0 rounded-xl shadow-glass focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white bg-opacity-80 backdrop-blur-sm">
-                <svg class="absolute left-4 top-4 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Search and Filter -->
+            <div class="mb-8 bg-white rounded-xl shadow-md p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="relative flex-grow">
+                        <input type="text" id="search" placeholder="Search shortcuts..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <div class="flex items-center">
+                        <label class="mr-2 text-gray-700 font-medium">View:</label>
+                        <button id="grid-view" class="p-2 rounded-l-lg bg-indigo-100 text-indigo-700 border border-indigo-200 hover:bg-indigo-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                        </button>
+                        <button id="list-view" class="p-2 rounded-r-lg bg-white text-gray-700 border border-gray-200 hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <div class="mb-10 overflow-x-auto">
-            <div class="flex space-x-1 pb-2 justify-center flex-wrap">
-                <button class="category-tab active px-5 py-2 rounded-full font-medium text-sm text-primary-600 hover:bg-primary-50 transition-all" data-category="all">All Shortcuts</button>
-                <button class="category-tab px-5 py-2 rounded-full font-medium text-sm text-gray-600 hover:bg-primary-50 transition-all" data-category="navigation">Navigation</button>
-                <button class="category-tab px-5 py-2 rounded-full font-medium text-sm text-gray-600 hover:bg-primary-50 transition-all" data-category="selection">Selection</button>
-                <button class="category-tab px-5 py-2 rounded-full font-medium text-sm text-gray-600 hover:bg-primary-50 transition-all" data-category="formatting">Formatting</button>
-                <button class="category-tab px-5 py-2 rounded-full font-medium text-sm text-gray-600 hover:bg-primary-50 transition-all" data-category="editing">Editing</button>
-                <button class="category-tab px-5 py-2 rounded-full font-medium text-sm text-gray-600 hover:bg-primary-50 transition-all" data-category="formulas">Formulas</button>
-                <button class="category-tab px-5 py-2 rounded-full font-medium text-sm text-gray-600 hover:bg-primary-50 transition-all" data-category="data">Data</button>
-                <button class="category-tab px-5 py-2 rounded-full font-medium text-sm text-gray-600 hover:bg-primary-50 transition-all" data-category="other">Other</button>
+
+            <!-- Categories -->
+            <div class="mb-8 overflow-x-auto">
+                <div class="flex space-x-2 pb-2">
+                    <button class="category-btn active whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-category="all">All Shortcuts</button>
+                    <button class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 transition-colors" data-category="navigation">Navigation</button>
+                    <button class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 transition-colors" data-category="formatting">Formatting</button>
+                    <button class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 transition-colors" data-category="editing">Editing</button>
+                    <button class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 transition-colors" data-category="formulas">Formulas</button>
+                    <button class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 transition-colors" data-category="data">Data Management</button>
+                    <button class="category-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 transition-colors" data-category="other">Other</button>
+                </div>
             </div>
-        </div>
-        
-        <div class="grid shortcut-grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="shortcutsContainer">
-            <!-- Shortcuts will be populated here -->
-        </div>
-        
-        <div class="mt-12 text-center hidden" id="noResults">
-            <div class="inline-block p-4 rounded-full bg-gray-100 mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+            <!-- Shortcuts Grid -->
+            <div id="shortcuts-container" class="grid shortcut-grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Shortcuts will be dynamically inserted here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden text-center py-16">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
+                <h3 class="mt-4 text-lg font-medium text-gray-900">No shortcuts found</h3>
+                <p class="mt-1 text-gray-500">Try adjusting your search or filter to find what you're looking for.</p>
+                <button id="reset-filters" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">Reset Filters</button>
             </div>
-            <p class="text-xl text-gray-600 font-medium">No shortcuts found matching your search.</p>
-            <p class="text-gray-500 mt-2">Try a different search term or category.</p>
-        </div>
-        
-        <footer class="mt-20 text-center text-gray-500 text-sm">
-            <div class="flex justify-center space-x-4 mb-4">
-                <span class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-primary-500" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg>
-                    101 Shortcuts
-                </span>
-                <span class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-primary-500" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd" />
-                    </svg>
-                    For Microsoft Excel
-                </span>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h2 class="text-xl font-bold">Excel Shortcuts Master</h2>
+                    <p class="text-gray-400">Boost your productivity with keyboard shortcuts</p>
+                </div>
+                <div class="flex space-x-4">
+                    <button id="dark-mode-toggle" class="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    <button id="print-shortcuts" class="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <p>Save this reference to boost your Excel productivity!</p>
         </footer>
     </div>
 
     <script>
+        // Create header grid
+        const headerGrid = document.querySelector('.header-grid');
+        for (let i = 0; i < 100; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'header-cell';
+            headerGrid.appendChild(cell);
+        }
+
+        // Shortcuts data
         const shortcuts = [
-            // Navigation shortcuts
-            { keys: "Ctrl + Arrow Keys", description: "Move to the edge of the current data region", category: "navigation" },
-            { keys: "Ctrl + Home", description: "Move to the beginning of the worksheet", category: "navigation" },
-            { keys: "Ctrl + End", description: "Move to the last cell with content", category: "navigation" },
-            { keys: "Page Up/Down", description: "Move one screen up or down", category: "navigation" },
-            { keys: "Alt + Page Up/Down", description: "Move one screen left or right", category: "navigation" },
-            { keys: "Ctrl + Page Up/Down", description: "Move between worksheet tabs", category: "navigation" },
-            { keys: "F5", description: "Open the Go To dialog box", category: "navigation" },
-            { keys: "Ctrl + G", description: "Open the Go To dialog box", category: "navigation" },
-            { keys: "Ctrl + Tab", description: "Switch between open Excel files", category: "navigation" },
-            { keys: "Ctrl + F", description: "Open Find dialog", category: "navigation" },
-            { keys: "Shift + F4", description: "Repeat last Find action", category: "navigation" },
-            { keys: "Ctrl + H", description: "Open Replace dialog", category: "navigation" },
-            { keys: "F4", description: "Repeat last action", category: "navigation" },
+            // Navigation
+            { id: 1, keys: "Ctrl+Arrow", description: "Move to the edge of the current data region", category: "navigation" },
+            { id: 2, keys: "Ctrl+Home", description: "Move to the beginning of the worksheet", category: "navigation" },
+            { id: 3, keys: "Ctrl+End", description: "Move to the last cell with content", category: "navigation" },
+            { id: 4, keys: "Alt+Page Down", description: "Move one screen to the right", category: "navigation" },
+            { id: 5, keys: "Alt+Page Up", description: "Move one screen to the left", category: "navigation" },
+            { id: 6, keys: "Ctrl+Page Down", description: "Move to the next sheet", category: "navigation" },
+            { id: 7, keys: "Ctrl+Page Up", description: "Move to the previous sheet", category: "navigation" },
+            { id: 8, keys: "F5", description: "Open the Go To dialog", category: "navigation" },
+            { id: 9, keys: "Ctrl+G", description: "Open the Go To dialog", category: "navigation" },
+            { id: 10, keys: "Ctrl+Tab", description: "Switch between open Excel files", category: "navigation" },
+            { id: 11, keys: "Shift+Space", description: "Select the entire row", category: "navigation" },
+            { id: 12, keys: "Ctrl+Space", description: "Select the entire column", category: "navigation" },
+            { id: 13, keys: "Ctrl+A", description: "Select all contents of the worksheet", category: "navigation" },
+            { id: 14, keys: "Ctrl+Shift+Space", description: "Select the entire table", category: "navigation" },
+            { id: 15, keys: "F8", description: "Turn extend mode on or off", category: "navigation" },
             
-            // Selection shortcuts
-            { keys: "Shift + Arrow Keys", description: "Extend the selection by one cell", category: "selection" },
-            { keys: "Ctrl + Space", description: "Select the entire column", category: "selection" },
-            { keys: "Shift + Space", description: "Select the entire row", category: "selection" },
-            { keys: "Ctrl + A", description: "Select all contents of the worksheet", category: "selection" },
-            { keys: "Ctrl + Shift + Arrow Keys", description: "Extend selection to the last non-empty cell", category: "selection" },
-            { keys: "Ctrl + Shift + Home", description: "Extend selection to the beginning of worksheet", category: "selection" },
-            { keys: "Ctrl + Shift + End", description: "Extend selection to the last used cell", category: "selection" },
-            { keys: "Shift + Page Down/Up", description: "Extend selection down/up one screen", category: "selection" },
-            { keys: "Alt + ;", description: "Select visible cells only", category: "selection" },
-            { keys: "F8", description: "Turn extend mode on/off", category: "selection" },
-            { keys: "Shift + F8", description: "Add another range to selection", category: "selection" },
+            // Formatting
+            { id: 16, keys: "Ctrl+1", description: "Open the Format Cells dialog box", category: "formatting" },
+            { id: 17, keys: "Ctrl+B", description: "Apply or remove bold formatting", category: "formatting" },
+            { id: 18, keys: "Ctrl+I", description: "Apply or remove italic formatting", category: "formatting" },
+            { id: 19, keys: "Ctrl+U", description: "Apply or remove underline", category: "formatting" },
+            { id: 20, keys: "Alt+H+B", description: "Add borders", category: "formatting" },
+            { id: 21, keys: "Alt+H+H", description: "Select a fill color", category: "formatting" },
+            { id: 22, keys: "Alt+H+FC", description: "Select a font color", category: "formatting" },
+            { id: 23, keys: "Ctrl+5", description: "Apply or remove strikethrough", category: "formatting" },
+            { id: 24, keys: "Ctrl+Shift+~", description: "Apply the General format", category: "formatting" },
+            { id: 25, keys: "Ctrl+Shift+$", description: "Apply the Currency format", category: "formatting" },
+            { id: 26, keys: "Ctrl+Shift+%", description: "Apply the Percentage format", category: "formatting" },
+            { id: 27, keys: "Ctrl+Shift+^", description: "Apply the Scientific format", category: "formatting" },
+            { id: 28, keys: "Ctrl+Shift+#", description: "Apply the Date format", category: "formatting" },
+            { id: 29, keys: "Ctrl+Shift+@", description: "Apply the Time format", category: "formatting" },
+            { id: 30, keys: "Ctrl+Shift+!", description: "Apply the Number format", category: "formatting" },
             
-            // Formatting shortcuts
-            { keys: "Ctrl + 1", description: "Open Format Cells dialog box", category: "formatting" },
-            { keys: "Ctrl + B", description: "Apply or remove bold formatting", category: "formatting" },
-            { keys: "Ctrl + I", description: "Apply or remove italic formatting", category: "formatting" },
-            { keys: "Ctrl + U", description: "Apply or remove underline", category: "formatting" },
-            { keys: "Ctrl + 5", description: "Apply or remove strikethrough", category: "formatting" },
-            { keys: "Alt + H + H", description: "Select a fill color", category: "formatting" },
-            { keys: "Alt + H + B", description: "Add a border", category: "formatting" },
-            { keys: "Ctrl + Shift + ~", description: "Apply General format", category: "formatting" },
-            { keys: "Ctrl + Shift + $", description: "Apply Currency format", category: "formatting" },
-            { keys: "Ctrl + Shift + %", description: "Apply Percentage format", category: "formatting" },
-            { keys: "Ctrl + Shift + ^", description: "Apply Scientific format", category: "formatting" },
-            { keys: "Ctrl + Shift + #", description: "Apply Date format", category: "formatting" },
-            { keys: "Ctrl + Shift + @", description: "Apply Time format", category: "formatting" },
-            { keys: "Ctrl + Shift + !", description: "Apply Number format", category: "formatting" },
+            // Editing
+            { id: 31, keys: "F2", description: "Edit the active cell", category: "editing" },
+            { id: 32, keys: "Alt+Enter", description: "Start a new line in the same cell", category: "editing" },
+            { id: 33, keys: "Ctrl+Z", description: "Undo the last action", category: "editing" },
+            { id: 34, keys: "Ctrl+Y", description: "Redo the last action", category: "editing" },
+            { id: 35, keys: "Ctrl+X", description: "Cut selected cells", category: "editing" },
+            { id: 36, keys: "Ctrl+C", description: "Copy selected cells", category: "editing" },
+            { id: 37, keys: "Ctrl+V", description: "Paste content from clipboard", category: "editing" },
+            { id: 38, keys: "Delete", description: "Remove cell contents", category: "editing" },
+            { id: 39, keys: "Ctrl+Delete", description: "Delete text to the end of the line", category: "editing" },
+            { id: 40, keys: "Ctrl+-", description: "Delete selected cells", category: "editing" },
+            { id: 41, keys: "Ctrl+Shift++", description: "Insert cells", category: "editing" },
+            { id: 42, keys: "Ctrl+D", description: "Fill down (copy content from above cell)", category: "editing" },
+            { id: 43, keys: "Ctrl+R", description: "Fill right (copy content from left cell)", category: "editing" },
+            { id: 44, keys: "Ctrl+;", description: "Enter the current date", category: "editing" },
+            { id: 45, keys: "Ctrl+Shift+:", description: "Enter the current time", category: "editing" },
             
-            // Editing shortcuts
-            { keys: "F2", description: "Edit the active cell", category: "editing" },
-            { keys: "Enter", description: "Complete cell entry and move down", category: "editing" },
-            { keys: "Tab", description: "Complete cell entry and move right", category: "editing" },
-            { keys: "Shift + Tab", description: "Complete cell entry and move left", category: "editing" },
-            { keys: "Ctrl + Z", description: "Undo last action", category: "editing" },
-            { keys: "Ctrl + Y", description: "Redo last action", category: "editing" },
-            { keys: "Ctrl + X", description: "Cut selected cells", category: "editing" },
-            { keys: "Ctrl + C", description: "Copy selected cells", category: "editing" },
-            { keys: "Ctrl + V", description: "Paste content from clipboard", category: "editing" },
-            { keys: "Delete", description: "Remove cell contents", category: "editing" },
-            { keys: "Ctrl + -", description: "Delete selected cells", category: "editing" },
-            { keys: "Ctrl + Shift + +", description: "Insert cells", category: "editing" },
-            { keys: "Ctrl + D", description: "Fill down", category: "editing" },
-            { keys: "Ctrl + R", description: "Fill right", category: "editing" },
-            { keys: "Ctrl + ;", description: "Enter current date", category: "editing" },
-            { keys: "Ctrl + Shift + :", description: "Enter current time", category: "editing" },
-            { keys: "Alt + Enter", description: "Start a new line in the same cell", category: "editing" },
-            { keys: "Ctrl + '", description: "Copy formula from cell above", category: "editing" },
+            // Formulas
+            { id: 46, keys: "=", description: "Start a formula", category: "formulas" },
+            { id: 47, keys: "Alt+=", description: "AutoSum selected cells", category: "formulas" },
+            { id: 48, keys: "F4", description: "Toggle absolute/relative references", category: "formulas" },
+            { id: 49, keys: "Shift+F3", description: "Open the Insert Function dialog box", category: "formulas" },
+            { id: 50, keys: "Ctrl+`", description: "Toggle between showing formulas and values", category: "formulas" },
+            { id: 51, keys: "Ctrl+Shift+U", description: "Expand or collapse the formula bar", category: "formulas" },
+            { id: 52, keys: "Ctrl+[", description: "Select cells directly referenced by formulas", category: "formulas" },
+            { id: 53, keys: "Ctrl+]", description: "Select cells with formulas that reference the active cell", category: "formulas" },
+            { id: 54, keys: "Ctrl+Shift+{", description: "Select all cells directly or indirectly referenced by formulas", category: "formulas" },
+            { id: 55, keys: "Ctrl+Shift+}", description: "Select cells with formulas that directly or indirectly reference the active cell", category: "formulas" },
+            { id: 56, keys: "F9", description: "Calculate all worksheets in all open workbooks", category: "formulas" },
+            { id: 57, keys: "Shift+F9", description: "Calculate the active worksheet", category: "formulas" },
+            { id: 58, keys: "Ctrl+Alt+F9", description: "Calculate all worksheets in all open workbooks, regardless of changes", category: "formulas" },
+            { id: 59, keys: "Ctrl+Alt+Shift+F9", description: "Recheck dependent formulas and calculate all cells", category: "formulas" },
+            { id: 60, keys: "Ctrl+F3", description: "Open the Name Manager", category: "formulas" },
             
-            // Formula shortcuts
-            { keys: "Alt + =", description: "AutoSum selected cells", category: "formulas" },
-            { keys: "F4", description: "Toggle absolute/relative references", category: "formulas" },
-            { keys: "Shift + F3", description: "Open the Insert Function dialog box", category: "formulas" },
-            { keys: "Ctrl + `", description: "Toggle between showing formulas and values", category: "formulas" },
-            { keys: "Ctrl + [", description: "Select direct precedents", category: "formulas" },
-            { keys: "Ctrl + ]", description: "Select direct dependents", category: "formulas" },
-            { keys: "Ctrl + Shift + {", description: "Select all precedents", category: "formulas" },
-            { keys: "Ctrl + Shift + }", description: "Select all dependents", category: "formulas" },
-            { keys: "F9", description: "Calculate all worksheets in all open workbooks", category: "formulas" },
-            { keys: "Shift + F9", description: "Calculate the active worksheet", category: "formulas" },
-            { keys: "Ctrl + Alt + F9", description: "Force calculate all worksheets", category: "formulas" },
-            { keys: "Ctrl + F3", description: "Open the Name Manager", category: "formulas" },
+            // Data Management
+            { id: 61, keys: "Ctrl+T", description: "Create or extend a table", category: "data" },
+            { id: 62, keys: "Alt+D+F+F", description: "Create a filter", category: "data" },
+            { id: 63, keys: "Alt+Down Arrow", description: "Open dropdown list for active cell", category: "data" },
+            { id: 64, keys: "Alt+D+S", description: "Open the Sort dialog box", category: "data" },
+            { id: 65, keys: "Alt+A+S+S", description: "Sort in ascending order", category: "data" },
+            { id: 66, keys: "Alt+A+S+D", description: "Sort in descending order", category: "data" },
+            { id: 67, keys: "Ctrl+Shift+L", description: "Toggle filter", category: "data" },
+            { id: 68, keys: "Alt+D+P", description: "Open the Data Form dialog box", category: "data" },
+            { id: 69, keys: "Alt+A+M", description: "Remove duplicates", category: "data" },
+            { id: 70, keys: "Alt+A+V+V", description: "Validate data", category: "data" },
+            { id: 71, keys: "Alt+A+W", description: "Create a PivotTable", category: "data" },
+            { id: 72, keys: "Alt+A+Q", description: "Quick Analysis", category: "data" },
+            { id: 73, keys: "Alt+A+E", description: "Flash Fill", category: "data" },
+            { id: 74, keys: "Alt+A+C", description: "Clear all filters", category: "data" },
+            { id: 75, keys: "Alt+A+T", description: "Refresh all data connections", category: "data" },
             
-            // Data shortcuts
-            { keys: "Ctrl + Shift + L", description: "Toggle filter", category: "data" },
-            { keys: "Alt + Down Arrow", description: "Display AutoFilter list for current column", category: "data" },
-            { keys: "Alt + D + F + F", description: "Create a filter", category: "data" },
-            { keys: "Alt + D + S", description: "Open Sort dialog", category: "data" },
-            { keys: "Alt + D + P", description: "Open Data Form", category: "data" },
-            { keys: "Alt + A + M", description: "Remove duplicates", category: "data" },
-            { keys: "Alt + A + T", description: "Create a PivotTable", category: "data" },
-            { keys: "Alt + A + W", description: "Create a PivotChart", category: "data" },
-            { keys: "Alt + D + L", description: "Open Data Validation dialog", category: "data" },
-            { keys: "Alt + D + G + G", description: "Group data", category: "data" },
-            { keys: "Alt + D + G + U", description: "Ungroup data", category: "data" },
-            
-            // Other shortcuts
-            { keys: "Ctrl + N", description: "Create a new workbook", category: "other" },
-            { keys: "Ctrl + O", description: "Open a workbook", category: "other" },
-            { keys: "Ctrl + S", description: "Save the workbook", category: "other" },
-            { keys: "F12", description: "Save As", category: "other" },
-            { keys: "Ctrl + P", description: "Print", category: "other" },
-            { keys: "Ctrl + F2", description: "Print preview", category: "other" },
-            { keys: "F1", description: "Open Excel Help", category: "other" },
-            { keys: "Alt", description: "Show KeyTips", category: "other" },
-            { keys: "Alt + F", description: "Open the File tab", category: "other" },
-            { keys: "Alt + H", description: "Go to Home tab", category: "other" },
-            { keys: "Alt + N", description: "Go to Insert tab", category: "other" },
-            { keys: "Alt + P", description: "Go to Page Layout tab", category: "other" },
-            { keys: "Alt + M", description: "Go to Formulas tab", category: "other" },
-            { keys: "Alt + A", description: "Go to Data tab", category: "other" },
-            { keys: "Alt + R", description: "Go to Review tab", category: "other" },
-            { keys: "Alt + W", description: "Go to View tab", category: "other" },
-            { keys: "Alt + Y", description: "Open Help pane", category: "other" },
-            { keys: "Ctrl + F1", description: "Show or hide the ribbon", category: "other" },
-            { keys: "Ctrl + W", description: "Close the current workbook", category: "other" },
-            { keys: "Alt + F4", description: "Close Excel", category: "other" },
-            { keys: "Ctrl + F9", description: "Minimize the workbook window", category: "other" },
-            { keys: "F11", description: "Create a chart on a separate sheet", category: "other" },
-            { keys: "Alt + F1", description: "Create an embedded chart", category: "other" },
-            { keys: "Alt + F8", description: "Open the Macro dialog box", category: "other" },
-            { keys: "Alt + F11", description: "Open the Visual Basic Editor", category: "other" }
+            // Other
+            { id: 76, keys: "Ctrl+N", description: "Create a new workbook", category: "other" },
+            { id: 77, keys: "Ctrl+O", description: "Open a workbook", category: "other" },
+            { id: 78, keys: "Ctrl+S", description: "Save the workbook", category: "other" },
+            { id: 79, keys: "F12", description: "Save As", category: "other" },
+            { id: 80, keys: "Ctrl+P", description: "Print", category: "other" },
+            { id: 81, keys: "Ctrl+F", description: "Find", category: "other" },
+            { id: 82, keys: "Ctrl+H", description: "Replace", category: "other" },
+            { id: 83, keys: "F7", description: "Check spelling", category: "other" },
+            { id: 84, keys: "Alt+F+T", description: "Open Excel Options", category: "other" },
+            { id: 85, keys: "Alt+W+Q", description: "Zoom dialog box", category: "other" },
+            { id: 86, keys: "Alt+W+F", description: "Toggle full screen", category: "other" },
+            { id: 87, keys: "Alt+W+L", description: "Show formulas", category: "other" },
+            { id: 88, keys: "Alt+W+G", description: "Show gridlines", category: "other" },
+            { id: 89, keys: "Alt+W+H", description: "Show headings", category: "other" },
+            { id: 90, keys: "Alt+W+P", description: "Page break preview", category: "other" },
+            { id: 91, keys: "Alt+W+I", description: "Normal view", category: "other" },
+            { id: 92, keys: "Alt+W+J", description: "Page layout view", category: "other" },
+            { id: 93, keys: "Alt+F+X", description: "Exit Excel", category: "other" },
+            { id: 94, keys: "Alt+F+E", description: "Export to PDF", category: "other" },
+            { id: 95, keys: "Alt+H+O+I", description: "Autofit column width", category: "other" },
+            { id: 96, keys: "Alt+H+O+A", description: "Autofit row height", category: "other" },
+            { id: 97, keys: "Alt+N+V", description: "Insert a chart", category: "other" },
+            { id: 98, keys: "Alt+N+P", description: "Insert a PivotTable", category: "other" },
+            { id: 99, keys: "Alt+N+X", description: "Insert a slicer", category: "other" },
+            { id: 100, keys: "Alt+N+U", description: "Insert a SmartArt graphic", category: "other" }
         ];
 
-        // Get category colors
-        const categoryColors = {
-            "navigation": { bg: "bg-blue-50", border: "border-blue-400", text: "text-blue-800" },
-            "selection": { bg: "bg-purple-50", border: "border-purple-400", text: "text-purple-800" },
-            "formatting": { bg: "bg-pink-50", border: "border-pink-400", text: "text-pink-800" },
-            "editing": { bg: "bg-amber-50", border: "border-amber-400", text: "text-amber-800" },
-            "formulas": { bg: "bg-emerald-50", border: "border-emerald-400", text: "text-emerald-800" },
-            "data": { bg: "bg-cyan-50", border: "border-cyan-400", text: "text-cyan-800" },
-            "other": { bg: "bg-gray-50", border: "border-gray-400", text: "text-gray-800" }
-        };
+        // DOM elements
+        const shortcutsContainer = document.getElementById('shortcuts-container');
+        const searchInput = document.getElementById('search');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const gridViewBtn = document.getElementById('grid-view');
+        const listViewBtn = document.getElementById('list-view');
+        const emptyState = document.getElementById('empty-state');
+        const resetFiltersBtn = document.getElementById('reset-filters');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const printShortcutsBtn = document.getElementById('print-shortcuts');
 
-        function renderShortcuts(filteredShortcuts = shortcuts) {
-            const container = document.getElementById('shortcutsContainer');
-            container.innerHTML = '';
+        // State
+        let currentCategory = 'all';
+        let currentView = 'grid';
+        let isDarkMode = false;
+
+        // Functions
+        function renderShortcuts() {
+            const searchTerm = searchInput.value.toLowerCase();
             
+            // Filter shortcuts based on search and category
+            const filteredShortcuts = shortcuts.filter(shortcut => {
+                const matchesSearch = shortcut.keys.toLowerCase().includes(searchTerm) || 
+                                     shortcut.description.toLowerCase().includes(searchTerm);
+                const matchesCategory = currentCategory === 'all' || shortcut.category === currentCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            // Clear container
+            shortcutsContainer.innerHTML = '';
+
+            // Show empty state if no results
             if (filteredShortcuts.length === 0) {
-                document.getElementById('noResults').classList.remove('hidden');
-                return;
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+
+                // Render shortcuts
+                filteredShortcuts.forEach(shortcut => {
+                    const card = document.createElement('div');
+                    card.className = `shortcut-card bg-white rounded-xl shadow-md overflow-hidden ${currentView === 'list' ? 'flex items-center' : ''}`;
+                    
+                    // Highlight search term in description
+                    let description = shortcut.description;
+                    if (searchTerm) {
+                        const regex = new RegExp(`(${searchTerm})`, 'gi');
+                        description = description.replace(regex, '<span class="search-highlight">$1</span>');
+                    }
+
+                    // Get category color
+                    let categoryColor;
+                    switch(shortcut.category) {
+                        case 'navigation': categoryColor = 'bg-blue-100 text-blue-800'; break;
+                        case 'formatting': categoryColor = 'bg-purple-100 text-purple-800'; break;
+                        case 'editing': categoryColor = 'bg-green-100 text-green-800'; break;
+                        case 'formulas': categoryColor = 'bg-yellow-100 text-yellow-800'; break;
+                        case 'data': categoryColor = 'bg-red-100 text-red-800'; break;
+                        default: categoryColor = 'bg-gray-100 text-gray-800';
+                    }
+
+                    if (currentView === 'list') {
+                        card.innerHTML = `
+                            <div class="p-4 flex-grow">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="font-mono bg-gray-100 px-3 py-1 rounded-md text-gray-800 font-medium">${shortcut.keys}</div>
+                                        <p class="ml-4 text-gray-700">${description}</p>
+                                    </div>
+                                    <span class="text-xs ${categoryColor} px-2 py-1 rounded-full">${shortcut.category}</span>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        card.innerHTML = `
+                            <div class="p-6">
+                                <div class="flex justify-between items-start">
+                                    <div class="font-mono bg-gray-100 px-3 py-1 rounded-md text-gray-800 font-medium">${shortcut.keys}</div>
+                                    <span class="text-xs ${categoryColor} px-2 py-1 rounded-full">${shortcut.category}</span>
+                                </div>
+                                <p class="mt-4 text-gray-700">${description}</p>
+                            </div>
+                        `;
+                    }
+                    
+                    shortcutsContainer.appendChild(card);
+                });
             }
+
+            // Update layout classes
+            if (currentView === 'list') {
+                shortcutsContainer.classList.remove('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
+                shortcutsContainer.classList.add('grid-cols-1');
+            } else {
+                shortcutsContainer.classList.remove('grid-cols-1');
+                shortcutsContainer.classList.add('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
+            }
+        }
+
+        function toggleDarkMode() {
+            const body = document.body;
+            isDarkMode = !isDarkMode;
             
-            document.getElementById('noResults').classList.add('hidden');
-            
-            filteredShortcuts.forEach(shortcut => {
-                const card = document.createElement('div');
-                const colors = categoryColors[shortcut.category];
-                
-                card.className = `shortcut-card bg-white bg-opacity-80 rounded-xl shadow-glass p-6 border-l-4 ${colors.border} hover:shadow-xl transition-all`;
-                card.setAttribute('data-category', shortcut.category);
-                
-                const keysHtml = shortcut.keys.split('+').map(key => 
-                    `<span class="key">${key.trim()}</span>`
-                ).join(' + ');
-                
-                card.innerHTML = `
-                    <div class="flex items-start">
-                        <div class="flex-1">
-                            <div class="mb-3 flex flex-wrap">${keysHtml}</div>
-                            <p class="text-gray-700">${shortcut.description}</p>
-                        </div>
-                        <div class="ml-4">
-                            <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full ${colors.bg} ${colors.text}">
-                                ${shortcut.category.charAt(0).toUpperCase() + shortcut.category.slice(1)}
-                            </span>
-                        </div>
-                    </div>
+            if (isDarkMode) {
+                body.classList.add('dark');
+                body.style.backgroundColor = '#1a202c';
+                body.style.color = '#f7fafc';
+                darkModeToggle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
                 `;
                 
-                container.appendChild(card);
-            });
-        }
-
-        function filterShortcuts() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const activeCategory = document.querySelector('.category-tab.active').getAttribute('data-category');
-            
-            let filtered = shortcuts;
-            
-            if (activeCategory !== 'all') {
-                filtered = filtered.filter(shortcut => shortcut.category === activeCategory);
-            }
-            
-            if (searchTerm) {
-                filtered = filtered.filter(shortcut => 
-                    shortcut.keys.toLowerCase().includes(searchTerm) || 
-                    shortcut.description.toLowerCase().includes(searchTerm)
-                );
-            }
-            
-            renderShortcuts(filtered);
-        }
-
-        document.getElementById('searchInput').addEventListener('input', filterShortcuts);
-        
-        document.querySelectorAll('.category-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.category-tab').forEach(t => {
-                    t.classList.remove('active', 'text-primary-600');
-                    t.classList.add('text-gray-600');
+                // Update card styles
+                document.querySelectorAll('.shortcut-card').forEach(card => {
+                    card.classList.remove('bg-white');
+                    card.classList.add('bg-gray-800');
                 });
+            } else {
+                body.classList.remove('dark');
+                body.style.backgroundColor = '#f8fafc';
+                body.style.color = '';
+                darkModeToggle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                `;
                 
-                this.classList.add('active', 'text-primary-600');
-                this.classList.remove('text-gray-600');
-                
-                filterShortcuts();
-            });
-        });
-
-        // Add animation to cards when they appear
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, index * 50);
-                    observer.unobserve(entry.target);
-                }
-            });
-        });
-
-        function animateCards() {
-            const cards = document.querySelectorAll('.shortcut-card');
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(card);
-            });
+                // Update card styles
+                document.querySelectorAll('.shortcut-card').forEach(card => {
+                    card.classList.remove('bg-gray-800');
+                    card.classList.add('bg-white');
+                });
+            }
         }
+
+        function printShortcuts() {
+            const printWindow = window.open('', '_blank');
+            const currentCategory = document.querySelector('.category-btn.active').dataset.category;
+            const categoryTitle = currentCategory === 'all' ? 'All Excel Shortcuts' : `Excel ${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)} Shortcuts`;
+            
+            let printContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Excel Shortcuts</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+                        h1 { color: #4f46e5; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th { background-color: #4f46e5; color: white; text-align: left; padding: 10px; }
+                        td { border-bottom: 1px solid #ddd; padding: 10px; }
+                        .keys { font-family: monospace; font-weight: bold; }
+                        .category { font-size: 0.8em; color: #6b7280; }
+                        @media print {
+                            h1 { color: #000; }
+                            th { background-color: #eee; color: #000; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>${categoryTitle}</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Shortcut</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            const filteredShortcuts = shortcuts.filter(shortcut => 
+                currentCategory === 'all' || shortcut.category === currentCategory
+            );
+            
+            filteredShortcuts.forEach(shortcut => {
+                printContent += `
+                    <tr>
+                        <td class="keys">${shortcut.keys}</td>
+                        <td>${shortcut.description}</td>
+                        <td class="category">${shortcut.category}</td>
+                    </tr>
+                `;
+            });
+            
+            printContent += `
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.open();
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            
+            setTimeout(() => {
+                printWindow.print();
+            }, 500);
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', renderShortcuts);
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                currentCategory = button.dataset.category;
+                renderShortcuts();
+            });
+        });
+
+        gridViewBtn.addEventListener('click', () => {
+            currentView = 'grid';
+            gridViewBtn.classList.remove('bg-white', 'text-gray-700');
+            gridViewBtn.classList.add('bg-indigo-100', 'text-indigo-700');
+            listViewBtn.classList.remove('bg-indigo-100', 'text-indigo-700');
+            listViewBtn.classList.add('bg-white', 'text-gray-700');
+            renderShortcuts();
+        });
+
+        listViewBtn.addEventListener('click', () => {
+            currentView = 'list';
+            listViewBtn.classList.remove('bg-white', 'text-gray-700');
+            listViewBtn.classList.add('bg-indigo-100', 'text-indigo-700');
+            gridViewBtn.classList.remove('bg-indigo-100', 'text-indigo-700');
+            gridViewBtn.classList.add('bg-white', 'text-gray-700');
+            renderShortcuts();
+        });
+
+        resetFiltersBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector('[data-category="all"]').classList.add('active');
+            currentCategory = 'all';
+            renderShortcuts();
+        });
+
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+        printShortcutsBtn.addEventListener('click', printShortcuts);
 
         // Initial render
         renderShortcuts();
-        setTimeout(animateCards, 100);
-
-        // Re-animate cards when filtering
-        const originalFilterShortcuts = filterShortcuts;
-        filterShortcuts = function() {
-            originalFilterShortcuts();
-            setTimeout(animateCards, 100);
-        };
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94e7e084e2b5f8c8',t:'MTc0OTcxNTg4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94f7d19886a740e8',t:'MTc0OTg4MzA0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
